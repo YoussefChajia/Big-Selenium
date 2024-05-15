@@ -1,0 +1,28 @@
+# Gradle specific
+.gradle/
+build/
+ 
+# IDE specific
+*.iml
+.idea/
+.vscode/
+ 
+# Compiled Java classes
+*.class
+ 
+# Logs
+*.log
+ 
+# Gradle Wrapper files
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+ 
+# Compiled Gradle plugins and scripts
+build/
+ 
+# Local configuration file (if any)
+.gradle
+
+# Gradlew and Gradlew.bat
+gradlew
+gradlew.bat
