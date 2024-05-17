@@ -38,4 +38,8 @@ public class ConfigReader {
     public static String getLastName() {
         return properties.getProperty("lastname");
     }
+
+    public static String getVatNumber() {
+        return properties.getProperty("vatnumber");
+    }
 }

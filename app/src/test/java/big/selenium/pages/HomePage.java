@@ -2,44 +2,29 @@ package big.selenium.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import big.selenium.utils.ConfigReader;
 
 public class HomePage extends BasePage {
 
-    // Updating the user first name and last name
+    // Buttons to navigate to the website pages
     private final By accountButtonLocator = By.xpath("//button[contains(., 'Account')]");
-    private final By profileButtonLocator = By.xpath("//button[contains(., 'Profile')]");
-    private final By firstNameFieldLocator = By.xpath("(//input[@type='text'])[1]");
-    private final By lastNameFieldLocator = By.xpath("(//input[@type='text'])[2]");
-    private final By saveButtonLocator = By.xpath("//button[contains(., 'Save changes')]");
+    private final By compressButtonLocator = By.xpath("//button[contains(., 'Compress')]");
 
-    // Logging out
     // INFO: Pay attention to the text inside the account icon (it's different depending on the user's name)
-    private final By accountIconLocator = By.xpath("//div[contains(text(), 'YC')]");
+    private final By accountIconLocator = By.id("__cond-22");
     private final By logoutButtonLocator = By.xpath("//span[text()='Log out']");
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
-    public void updateUserName() throws InterruptedException {
+    public void openAccountPage() throws InterruptedException {
         getClickableElement(accountButtonLocator).click();
-        getClickableElement(profileButtonLocator).click();
 
-        WebElement firstNameField = getClickableElement(firstNameFieldLocator);
-        WebElement lastNameField = getClickableElement(lastNameFieldLocator);
+        Thread.sleep(1000);
+    }
 
-        firstNameField.click();
-        firstNameField.clear();
-        firstNameField.sendKeys(ConfigReader.getFirstName());
-
-        lastNameField.click();
-        lastNameField.clear();
-        lastNameField.sendKeys(ConfigReader.getLastName());
-
-        getClickableElement(saveButtonLocator).click();
+    public void openCompressPage() throws InterruptedException {
+        getClickableElement(compressButtonLocator).click();
 
         Thread.sleep(1000);
     }

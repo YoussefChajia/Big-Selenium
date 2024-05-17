@@ -4,9 +4,6 @@ import org.junit.*;
 
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import java.net.URL;
 import java.net.MalformedURLException;
@@ -27,12 +24,35 @@ public class AppTest {
     @Test
     public void smallPdfTest() throws InterruptedException {
 
+        // Opening the SmallPDF website
         new BasePage(this.driver).openMainWebsite();;
-
+        // 1. Fill simple form and send -> Login
         new LoginPageTest(this.driver).loginTest();
 
-        HomePage homePage = new HomePage(this.driver);
-        homePage.updateUserName();
+        HomePage homePage = new HomePage(driver);
+        AccountPage accountPage = new AccountPage(this.driver);
+        CompressPage compressPage = new CompressPage(this.driver);
+
+        homePage.openAccountPage();
+
+        if (accountPage.isAccountPage()) {
+            System.out.println("Current page : Account page");
+            // 2. Form sending with user
+            accountPage.updateUserName();
+            // 3. Update VAT number
+            accountPage.updateVatNumber();
+        } else {
+            System.out.println("Trying to exectue an account method from a different page. Ignoring...");
+        }
+
+        homePage.openCompressPage();
+
+        if (compressPage.isCompressPage()) {
+            System.out.println("Current page : Compress page");
+        } else {
+            System.out.println("Trying to exectue a compress method from a different page. Ignoring...");
+        }
+
         homePage.logout();
     }
 
