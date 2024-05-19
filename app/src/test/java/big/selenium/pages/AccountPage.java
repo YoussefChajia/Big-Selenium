@@ -49,10 +49,12 @@ public class AccountPage extends BasePage {
 
         firstNameField.click();
         firstNameField.clear();
+        Thread.sleep(1000);
         firstNameField.sendKeys(ConfigReader.getFirstName());
 
         lastNameField.click();
         lastNameField.clear();
+        Thread.sleep(1000);
         lastNameField.sendKeys(ConfigReader.getLastName());
 
         getClickableElement(nameSaveButtonLocator).click();
@@ -69,6 +71,7 @@ public class AccountPage extends BasePage {
         
         vatNumberField.click();
         vatNumberField.clear();
+        Thread.sleep(1000);
         vatNumberField.sendKeys(ConfigReader.getVatNumber());
 
         getClickableElement(vatNumberSaveButtonLocator).click();

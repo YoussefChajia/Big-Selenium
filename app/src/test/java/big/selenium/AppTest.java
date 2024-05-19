@@ -27,6 +27,13 @@ public class AppTest {
         ChromeOptions options = new ChromeOptions();
         this.driver = new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
         this.driver.manage().window().maximize();
+
+        // Configure browser options
+        options.addArguments("--headless");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-infobars");
+        options.addArguments("--disable-notifications");
+        options.addArguments("--disable-popup-blocking"); 
     }
 
     @Test
@@ -47,6 +54,7 @@ public class AppTest {
         loginPage.login();
 
         homePage.getPageTitle();
+        homePage.hideTrailBanner();
         homePage.openAccountPage();
 
         if (accountPage.isAccountPage()) {
@@ -85,13 +93,17 @@ public class AppTest {
 
         Thread.sleep(1000);
 
+        homePage.hoverOverConvertButton();
+
+        Thread.sleep(1000);
+
         loginPage.logout();
     }
 
-    // @Test
-    // public void advancedSeleniumTest() {
-    //     // Advanced test
-    // }
+    @Test
+    public void advancedSeleniumTest() {
+        // Advanced test
+    }
 
     @After
     public void close() {

@@ -25,7 +25,7 @@ public class StaticPage extends BasePage {
         );
     }
 
-    public void testPageLoadsCorrectly(String url) {
+    public void testPageLoadsCorrectly(String url) throws InterruptedException {
         getDriver().get(url);
 
         WebElement bodyElement = getElement(bodyIndicator);
@@ -35,5 +35,9 @@ public class StaticPage extends BasePage {
         }
 
         getPageTitle();
+
+        Thread.sleep(1000);
+
+        getDriver().navigate().back();
     }
 }
