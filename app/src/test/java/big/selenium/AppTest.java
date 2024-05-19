@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.WebDriver;
 import java.net.URL;
+import java.util.Collection;
 import java.net.MalformedURLException;
 
 import big.selenium.pages.*;
@@ -13,6 +14,13 @@ import big.selenium.pages.*;
 public class AppTest {
 
     private WebDriver driver;
+
+    private BasePage basePage;
+    private LoginPage loginPage;
+    private HomePage homePage;
+    private AccountPage accountPage;
+    private CompressPage compressPage;
+    private StaticPage staticPage;
 
     @Before
     public void setup() throws MalformedURLException {
@@ -22,29 +30,44 @@ public class AppTest {
     }
 
     @Test
-    public void smallPdfTest() throws InterruptedException {
+    public void basicSeleniumTest() throws InterruptedException {
+
+        // Instantiating the pages
+        basePage = new BasePage(this.driver);;
+        homePage = new HomePage(driver);
+        accountPage = new AccountPage(this.driver);
+        compressPage = new CompressPage(this.driver);
+        staticPage = new StaticPage(driver);
 
         // Opening the SmallPDF website
-        new BasePage(this.driver).openMainWebsite();;
-        // 1. Fill simple form and send -> Login
-        new LoginPageTest(this.driver).loginTest();
+        basePage.openMainWebsite();
 
-        HomePage homePage = new HomePage(driver);
-        AccountPage accountPage = new AccountPage(this.driver);
-        CompressPage compressPage = new CompressPage(this.driver);
+        // Fill simple form and send -> Login
+        loginPage = new LoginPage(this.driver);
+        loginPage.login();
 
+        homePage.getPageTitle();
         homePage.openAccountPage();
 
         if (accountPage.isAccountPage()) {
+            
             System.out.println("Current page : Account page");
-            // 2. Form sending with user
+
+            // Form sending with user
             accountPage.updateUserName();
-            // 3. Update VAT number
+
+            // Update VAT number
             accountPage.updateVatNumber();
+
+            // TODO: Fix the drop down selection
+            // Update profile settings
+            // accountPage.updateProfileSettings();
+
         } else {
             System.out.println("Trying to exectue an account method from a different page. Ignoring...");
         }
 
+        // Static page test
         homePage.openCompressPage();
 
         if (compressPage.isCompressPage()) {
@@ -53,8 +76,22 @@ public class AppTest {
             System.out.println("Trying to exectue a compress method from a different page. Ignoring...");
         }
 
-        homePage.logout();
+        // Multiple static page test
+        Collection<String> pageUrls = StaticPage.pageUrls();
+
+        for (String url : pageUrls) {
+            staticPage.testPageLoadsCorrectly(url);
+        }
+
+        Thread.sleep(1000);
+
+        loginPage.logout();
     }
+
+    // @Test
+    // public void advancedSeleniumTest() {
+    //     // Advanced test
+    // }
 
     @After
     public void close() {
@@ -62,4 +99,4 @@ public class AppTest {
             this.driver.quit();
         }
     }
-}
+} 
