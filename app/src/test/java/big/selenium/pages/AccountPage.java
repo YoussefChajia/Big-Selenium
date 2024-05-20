@@ -8,7 +8,6 @@ import big.selenium.utils.ConfigReader;
 
 public class AccountPage extends BasePage {
 
-    // Get this element with class name and text using xpath <div class="sc-12awoku-3 eXHubu">Compress</div>
     private final By accountSectionLocator = By.xpath("//div[contains(@class, 'sc-12awoku-3') and text()='Account']");
 
     // Updating the user first name and last name
@@ -17,7 +16,6 @@ public class AccountPage extends BasePage {
     private final By lastNameFieldLocator = By.xpath("(//input[@type='text'])[2]");
     private final By nameSaveButtonLocator = By.xpath("//div[@class='sc-19ykhrs-2 hSGgpJ']//button[.//div[contains(text(), 'Save changes')]]");
 
-
     // Sending a form: filling a text field for the VAT number
     private final By companyInfoButtonLocator = By.xpath("//button[contains(., 'Company Information')]");
     private final By addVatNumberButtonLocator = By.xpath("//div[text()='VAT Number']/following-sibling::div[@class='sc-11wj96s-0 ewGVvF']");
@@ -25,14 +23,14 @@ public class AccountPage extends BasePage {
     private final By vatNumberSaveButtonLocator = By.xpath("//button[contains(@class, '__rt9NE') and contains(., 'Update')]");
 
     // Updating the profile settings
-    public static final By iNeedSmallDropDownLocator = By.xpath("//span[contains(text(), 'I need Smallpdf for')]/following-sibling::div/button");
-    public static final By mainUseDropDownLocator = By.xpath("//span[contains(text(), 'Main use')]/following-sibling::div/button");
-    public static final By industryDropDownLocator = By.xpath("//span[contains(text(), 'Industry')]/following-sibling::div/button");
-    public static final By departmentDropDownLocator = By.xpath("//span[contains(text(), 'Department')]/following-sibling::div/button");
-    public static final By companySizeDropDownLocator = By.xpath("//span[contains(text(), 'Company size')]/following-sibling::div/button");
-    private final By profileSaveButtonLocator = By.xpath("//div[@class='sc-1ut4an7-6 kLVzC']//button[.//div[contains(text(), 'Save changes')]]");
+    public static final By iNeedSmallDropDownLocator = By.xpath("/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[1]/button");
+    public static final By mainUseDropDownLocator = By.xpath("/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[2]/button");
+    public static final By industryDropDownLocator = By.xpath("/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[3]/button");
+    public static final By departmentDropDownLocator = By.xpath("/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[4]/button");
+    public static final By companySizeDropDownLocator = By.xpath("/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[5]/button");
+    private final By profileSaveButtonLocator = By.xpath("/html/body/div[1]/div/div/div/div/div[2]/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[6]/button");
     
-    public AccountPage(WebDriver driver) throws InterruptedException {
+    public AccountPage(WebDriver driver) {
         super(driver);
     }
 
@@ -40,57 +38,75 @@ public class AccountPage extends BasePage {
         return getElement(accountSectionLocator).isDisplayed();
     }
 
-    public void updateUserName() throws InterruptedException {
+    public void updateUserName() {
 
-        getClickableElement(profileButtonLocator).click();
+        try {
 
-        WebElement firstNameField = getClickableElement(firstNameFieldLocator);
-        WebElement lastNameField = getClickableElement(lastNameFieldLocator);
+            getClickableElement(profileButtonLocator).click();
 
-        firstNameField.click();
-        firstNameField.clear();
-        Thread.sleep(1000);
-        firstNameField.sendKeys(ConfigReader.getFirstName());
+            WebElement firstNameField = getClickableElement(firstNameFieldLocator);
+            WebElement lastNameField = getClickableElement(lastNameFieldLocator);
 
-        lastNameField.click();
-        lastNameField.clear();
-        Thread.sleep(1000);
-        lastNameField.sendKeys(ConfigReader.getLastName());
+            firstNameField.click();
+            firstNameField.clear();
+            Thread.sleep(1000);
+            firstNameField.sendKeys(ConfigReader.getFirstName());
 
-        getClickableElement(nameSaveButtonLocator).click();
+            lastNameField.click();
+            lastNameField.clear();
+            Thread.sleep(1000);
+            lastNameField.sendKeys(ConfigReader.getLastName());
 
-        Thread.sleep(1000);
+            getClickableElement(nameSaveButtonLocator).click();
+
+            Thread.sleep(1000);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void updateVatNumber() throws InterruptedException {
+    public void updateVatNumber() {
 
-        getClickableElement(companyInfoButtonLocator).click();
-        getClickableElement(addVatNumberButtonLocator).click();
+        try {
 
-        WebElement vatNumberField = getClickableElement(vatNumberFieldLocator);
-        
-        vatNumberField.click();
-        vatNumberField.clear();
-        Thread.sleep(1000);
-        vatNumberField.sendKeys(ConfigReader.getVatNumber());
+            getClickableElement(companyInfoButtonLocator).click();
+            getClickableElement(addVatNumberButtonLocator).click();
 
-        getClickableElement(vatNumberSaveButtonLocator).click();
+            WebElement vatNumberField = getClickableElement(vatNumberFieldLocator);
+            
+            vatNumberField.click();
+            vatNumberField.clear();
+            Thread.sleep(1000);
+            vatNumberField.sendKeys(ConfigReader.getVatNumber());
 
-        Thread.sleep(1000);
+            getClickableElement(vatNumberSaveButtonLocator).click();
+
+            Thread.sleep(1000);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void updateProfileSettings() throws InterruptedException {
+    public void updateProfileSettings() {
 
-        getClickableElement(profileButtonLocator).click();
+        try {
 
-        selectDropDownOption(iNeedSmallDropDownLocator, "My own business");
-        selectDropDownOption(mainUseDropDownLocator, "Quickly process files for administrative tasks");
-        selectDropDownOption(industryDropDownLocator, "Education");
-        selectDropDownOption(departmentDropDownLocator, "Design");
-        selectDropDownOption(companySizeDropDownLocator, "Only me");
+            getClickableElement(profileButtonLocator).click();
 
-        getClickableElement(profileSaveButtonLocator).click();
+            selectDropDownOption(iNeedSmallDropDownLocator, "My own business");
+            selectDropDownOption(mainUseDropDownLocator, "Quickly process files for administrative tasks");
+            selectDropDownOption(industryDropDownLocator, "Education");
+            selectDropDownOption(departmentDropDownLocator, "Design");
+            selectDropDownOption(companySizeDropDownLocator, "Only me");
 
-        Thread.sleep(1000);
+            getClickableElement(profileSaveButtonLocator).click();
+
+            Thread.sleep(1000);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -74,9 +74,8 @@ public class AppTest {
                 // Update VAT number
                 accountPage.updateVatNumber();
 
-                // TODO: Fix the drop down selection
                 // Update profile settings
-                // accountPage.updateProfileSettings();
+                accountPage.updateProfileSettings();
 
             } else {
                 System.out.println("Trying to exectue an account method from a different page. Ignoring...");
@@ -92,10 +91,12 @@ public class AppTest {
                 System.out.println("Trying to exectue a compress method from a different page. Ignoring...");
             }
 
+            Thread.sleep(1000);
+
             // Hover over the convert button test
             homePage.hoverOverConvertButton();
 
-            Thread.sleep(2000);
+            Thread.sleep(1000);
 
             // Loading multiple static page test and performing a history test
             Collection<String> pageUrls = StaticPage.pageUrls();

@@ -54,7 +54,7 @@ public class BasePage {
         try {
             WebElement dropdown = getClickableElement(locator);
             dropdown.click();
-            WebElement optionElement = this.driver.findElement(By.xpath("//div[text()='" + option + "']"));
+            WebElement optionElement = this.driver.findElement(By.xpath("//div[@class='jykxee-4 kBPUom']/button[.//div[@class='mtc90g-5 gWmZrS']/div[@class='mtc90g-0 kDMngU' and text()='" + option + "']]"));
             optionElement.click();
         } catch (Exception e) {
             System.out.print(" : ");
