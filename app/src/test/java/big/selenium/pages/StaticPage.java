@@ -35,9 +35,7 @@ public class StaticPage extends BasePage {
         }
 
         getPageTitle();
-
         Thread.sleep(1000);
-
         getDriver().navigate().back();
     }
 }
